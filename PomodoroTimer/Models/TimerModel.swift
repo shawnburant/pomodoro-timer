@@ -7,6 +7,7 @@ final class TimerModel: ObservableObject {
     @Published var sessionType: SessionType = .work
     @Published var remainingSeconds: Int
     @Published var sessionLabel: String = ""
+    @Published var completedWorkSessions: Int = 0
 
     private(set) var currentSession: Session?
     private(set) var lastCompletedSession: Session?
@@ -14,12 +15,25 @@ final class TimerModel: ObservableObject {
     private var timerCancellable: AnyCancellable?
     private var lastTickDate: Date?
 
+    var cycleProgressText: String {
+        switch sessionType {
+        case .work:
+            let name = sessionLabel.isEmpty ? "Work" : sessionLabel
+            return "\(name) \(completedWorkSessions + 1)/4"
+        case .shortBreak:
+            return "Short Break"
+        case .longBreak:
+            return "Long Break"
+        }
+    }
+
     var menuBarTitle: String {
+        let icon = sessionType == .work ? "🍅" : "☕"
         switch timerState {
         case .stopped:
-            return "🍅"
+            return icon
         case .running:
-            return "🍅 \(TimeFormatting.format(seconds: remainingSeconds))"
+            return "\(icon) \(TimeFormatting.format(seconds: remainingSeconds))"
         case .paused:
             return "⏸ \(TimeFormatting.format(seconds: remainingSeconds))"
         }
@@ -93,7 +107,26 @@ final class TimerModel: ObservableObject {
             timerState = .stopped
             lastCompletedSession = currentSession
             currentSession = nil
+            advanceCycle()
         }
+    }
+
+    private func advanceCycle() {
+        switch sessionType {
+        case .work:
+            completedWorkSessions += 1
+            if completedWorkSessions >= 4 {
+                sessionType = .longBreak
+            } else {
+                sessionType = .shortBreak
+            }
+        case .shortBreak:
+            sessionType = .work
+        case .longBreak:
+            completedWorkSessions = 0
+            sessionType = .work
+        }
+        remainingSeconds = sessionType.duration
     }
 
     func repeatSession() {
@@ -110,6 +143,7 @@ final class TimerModel: ObservableObject {
         sessionLabel = ""
         sessionType = .work
         remainingSeconds = SessionType.work.duration
+        completedWorkSessions = 0
         lastCompletedSession = nil
     }
 }

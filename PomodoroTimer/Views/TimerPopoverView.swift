@@ -9,6 +9,20 @@ struct TimerPopoverView: View {
                 .textFieldStyle(.roundedBorder)
                 .disabled(timer.timerState == .running)
 
+            VStack(spacing: 4) {
+                Text(timer.cycleProgressText)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+
+                HStack(spacing: 6) {
+                    ForEach(0..<4, id: \.self) { index in
+                        Circle()
+                            .fill(index < timer.completedWorkSessions ? Color.accentColor : Color.gray.opacity(0.3))
+                            .frame(width: 8, height: 8)
+                    }
+                }
+            }
+
             TimerDisplayView(
                 remainingSeconds: timer.remainingSeconds,
                 sessionType: timer.sessionType
