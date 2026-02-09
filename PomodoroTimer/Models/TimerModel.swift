@@ -6,6 +6,10 @@ final class TimerModel: ObservableObject {
     @Published var timerState: TimerState = .stopped
     @Published var sessionType: SessionType = .work
     @Published var remainingSeconds: Int
+    @Published var sessionLabel: String = ""
+
+    private(set) var currentSession: Session?
+    private(set) var lastCompletedSession: Session?
 
     private var timerCancellable: AnyCancellable?
     private var lastTickDate: Date?
@@ -41,12 +45,22 @@ final class TimerModel: ObservableObject {
         timerCancellable = nil
         lastTickDate = nil
         timerState = .stopped
+        currentSession = nil
         remainingSeconds = sessionType.duration
     }
 
     private func start() {
         lastTickDate = Date()
         timerState = .running
+
+        if currentSession == nil {
+            currentSession = Session(
+                label: sessionLabel,
+                sessionType: sessionType,
+                startTime: Date(),
+                duration: sessionType.duration
+            )
+        }
 
         timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -77,6 +91,25 @@ final class TimerModel: ObservableObject {
             timerCancellable = nil
             lastTickDate = nil
             timerState = .stopped
+            lastCompletedSession = currentSession
+            currentSession = nil
         }
+    }
+
+    func repeatSession() {
+        guard let last = lastCompletedSession else { return }
+        sessionLabel = last.label
+        sessionType = last.sessionType
+        remainingSeconds = last.sessionType.duration
+        lastCompletedSession = nil
+        startPause()
+    }
+
+    func newSession() {
+        stopReset()
+        sessionLabel = ""
+        sessionType = .work
+        remainingSeconds = SessionType.work.duration
+        lastCompletedSession = nil
     }
 }

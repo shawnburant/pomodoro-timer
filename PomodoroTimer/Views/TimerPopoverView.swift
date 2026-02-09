@@ -5,9 +5,9 @@ struct TimerPopoverView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Text(timer.sessionType.displayName)
-                .font(.headline)
-                .foregroundStyle(.secondary)
+            TextField("What are you working on?", text: $timer.sessionLabel)
+                .textFieldStyle(.roundedBorder)
+                .disabled(timer.timerState == .running)
 
             TimerDisplayView(
                 remainingSeconds: timer.remainingSeconds,
@@ -19,6 +19,21 @@ struct TimerPopoverView: View {
                 onStartPause: timer.startPause,
                 onReset: timer.stopReset
             )
+
+            HStack(spacing: 12) {
+                Button(action: timer.repeatSession) {
+                    Text("Repeat")
+                        .frame(maxWidth: .infinity)
+                }
+                .controlSize(.large)
+                .disabled(timer.lastCompletedSession == nil)
+
+                Button(action: timer.newSession) {
+                    Text("New Session")
+                        .frame(maxWidth: .infinity)
+                }
+                .controlSize(.large)
+            }
 
             Divider()
 

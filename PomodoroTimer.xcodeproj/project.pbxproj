@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		20588BB71B1208534673C561 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938EDCD7DB26774AE0CA6272 /* TimerState.swift */; };
+		A5BA01720A8093C0D7199AA1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93E33D4383D4CA0CA9242 /* Session.swift */; };
 		B529869B388744EA9AE0C2F9 /* TimerDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5F156202761C5D9831B7E5 /* TimerDisplayView.swift */; };
 		B7B7BB5782B5019ADCF6E289 /* ControlButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437498CE2A3B1879310525BE /* ControlButtonsView.swift */; };
 		BC7360998E1C790E3B83B090 /* PomodoroTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52FC923A390609C4DF94B1A /* PomodoroTimerApp.swift */; };
@@ -23,6 +24,7 @@
 		8D4121038FE7FCFC70424658 /* PomodoroTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92503A0445EF073AEB1538C7 /* TimerPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPopoverView.swift; sourceTree = "<group>"; };
 		938EDCD7DB26774AE0CA6272 /* TimerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
+		ABB93E33D4383D4CA0CA9242 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		B52FC923A390609C4DF94B1A /* PomodoroTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerApp.swift; sourceTree = "<group>"; };
 		EFC7E9EB0B3A88160DE77EDE /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		F0E6CD7864B78D4CA1280D0F /* TimeFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
@@ -42,6 +44,7 @@
 		84E8FF6B15CE267E9E192C55 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				ABB93E33D4383D4CA0CA9242 /* Session.swift */,
 				EFC7E9EB0B3A88160DE77EDE /* TimerModel.swift */,
 				938EDCD7DB26774AE0CA6272 /* TimerState.swift */,
 			);
@@ -139,6 +142,7 @@
 			files = (
 				B7B7BB5782B5019ADCF6E289 /* ControlButtonsView.swift in Sources */,
 				BC7360998E1C790E3B83B090 /* PomodoroTimerApp.swift in Sources */,
+				A5BA01720A8093C0D7199AA1 /* Session.swift in Sources */,
 				D0A195C2BE611CC517E7465B /* TimeFormatting.swift in Sources */,
 				B529869B388744EA9AE0C2F9 /* TimerDisplayView.swift in Sources */,
 				FE4EBF51A75F0C53B68635B2 /* TimerModel.swift in Sources */,
