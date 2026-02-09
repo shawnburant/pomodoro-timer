@@ -1,0 +1,22 @@
+name: PomodoroTimer
+options:
+  bundleIdPrefix: com.shawnburant
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "16.0"
+settings:
+  SWIFT_VERSION: "6.0"
+targets:
+  PomodoroTimer:
+    type: application
+    platform: macOS
+    sources:
+      - PomodoroTimer
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+      INFOPLIST_KEY_LSUIElement: YES
+      CODE_SIGN_ENTITLEMENTS: PomodoroTimer/PomodoroTimer.entitlements
+      PRODUCT_BUNDLE_IDENTIFIER: com.shawnburant.PomodoroTimer
+      MARKETING_VERSION: "1.0.0"
+      CURRENT_PROJECT_VERSION: "1"
+      SWIFT_STRICT_CONCURRENCY: complete
