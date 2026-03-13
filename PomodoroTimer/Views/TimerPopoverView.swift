@@ -52,6 +52,9 @@ struct TimerPopoverView: View {
 
             Divider()
 
+            Toggle("Tick Sound", isOn: $timer.tickSoundEnabled)
+                .controlSize(.small)
+
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
             }

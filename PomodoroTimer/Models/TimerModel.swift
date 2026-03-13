@@ -8,13 +8,16 @@ final class TimerModel: ObservableObject {
     @Published var remainingSeconds: Int
     @Published var sessionLabel: String = ""
     @Published var completedWorkSessions: Int = 0
+    @Published var tickSoundEnabled: Bool {
+        didSet { UserDefaults.standard.set(tickSoundEnabled, forKey: "tickSoundEnabled") }
+    }
 
     private(set) var currentSession: Session?
     private(set) var lastCompletedSession: Session?
 
     private let audioManager = AudioManager()
     private var timerCancellable: AnyCancellable?
-    private var lastTickDate: Date?
+    private var targetEndDate: Date?
 
     var cycleProgressText: String {
         switch sessionType {
@@ -42,6 +45,12 @@ final class TimerModel: ObservableObject {
 
     init() {
         self.remainingSeconds = SessionType.work.duration
+        let defaults = UserDefaults.standard
+        if defaults.object(forKey: "tickSoundEnabled") == nil {
+            self.tickSoundEnabled = true
+        } else {
+            self.tickSoundEnabled = defaults.bool(forKey: "tickSoundEnabled")
+        }
     }
 
     func startPause() {
@@ -58,14 +67,14 @@ final class TimerModel: ObservableObject {
     func stopReset() {
         timerCancellable?.cancel()
         timerCancellable = nil
-        lastTickDate = nil
+        targetEndDate = nil
         timerState = .stopped
         currentSession = nil
         remainingSeconds = sessionType.duration
     }
 
     private func start() {
-        lastTickDate = Date()
+        targetEndDate = Date().addingTimeInterval(Double(remainingSeconds))
         timerState = .running
 
         if currentSession == nil {
@@ -88,23 +97,25 @@ final class TimerModel: ObservableObject {
     private func pause() {
         timerCancellable?.cancel()
         timerCancellable = nil
-        lastTickDate = nil
+        targetEndDate = nil
         timerState = .paused
     }
 
     private func tick(fireDate: Date) {
-        guard let lastTick = lastTickDate else { return }
+        guard let endDate = targetEndDate else { return }
 
-        let elapsed = Int(fireDate.timeIntervalSince(lastTick))
-        guard elapsed > 0 else { return }
+        let newRemaining = max(0, Int(ceil(endDate.timeIntervalSince(fireDate))))
+        guard newRemaining != remainingSeconds else { return }
+        remainingSeconds = newRemaining
 
-        lastTickDate = fireDate
-        remainingSeconds = max(0, remainingSeconds - elapsed)
+        if remainingSeconds > 0 && tickSoundEnabled {
+            audioManager.playTickSound()
+        }
 
         if remainingSeconds == 0 {
             timerCancellable?.cancel()
             timerCancellable = nil
-            lastTickDate = nil
+            targetEndDate = nil
             timerState = .stopped
             lastCompletedSession = currentSession
             currentSession = nil
@@ -136,7 +147,7 @@ final class TimerModel: ObservableObject {
 
         timerCancellable?.cancel()
         timerCancellable = nil
-        lastTickDate = nil
+        targetEndDate = nil
         timerState = .stopped
 
         let elapsed = sessionType.duration - remainingSeconds
