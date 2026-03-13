@@ -1,8 +1,7 @@
-import Combine
 import Foundation
 
 @MainActor
-final class TimerModel: ObservableObject {
+final class TimerModel: NSObject, ObservableObject {
     @Published var timerState: TimerState = .stopped
     @Published var sessionType: SessionType = .work
     @Published var remainingSeconds: Int
@@ -16,7 +15,7 @@ final class TimerModel: ObservableObject {
     private(set) var lastCompletedSession: Session?
 
     private let audioManager = AudioManager()
-    private var timerCancellable: AnyCancellable?
+    private var timer: Timer?
     private var targetEndDate: Date?
 
     var cycleProgressText: String {
@@ -43,7 +42,7 @@ final class TimerModel: ObservableObject {
         }
     }
 
-    init() {
+    override init() {
         self.remainingSeconds = SessionType.work.duration
         let defaults = UserDefaults.standard
         if defaults.object(forKey: "tickSoundEnabled") == nil {
@@ -51,6 +50,7 @@ final class TimerModel: ObservableObject {
         } else {
             self.tickSoundEnabled = defaults.bool(forKey: "tickSoundEnabled")
         }
+        super.init()
     }
 
     func startPause() {
@@ -65,8 +65,8 @@ final class TimerModel: ObservableObject {
     }
 
     func stopReset() {
-        timerCancellable?.cancel()
-        timerCancellable = nil
+        timer?.invalidate()
+        timer = nil
         targetEndDate = nil
         timerState = .stopped
         currentSession = nil
@@ -86,19 +86,22 @@ final class TimerModel: ObservableObject {
             )
         }
 
-        timerCancellable = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .sink { [weak self] fireDate in
-                guard let self else { return }
-                self.tick(fireDate: fireDate)
-            }
+        let now = Date().timeIntervalSinceReferenceDate
+        let nextSecond = Date(timeIntervalSinceReferenceDate: ceil(now))
+        let t = Timer(fireAt: nextSecond, interval: 1.0, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
+        RunLoop.main.add(t, forMode: .common)
+        timer = t
     }
 
     private func pause() {
-        timerCancellable?.cancel()
-        timerCancellable = nil
+        timer?.invalidate()
+        timer = nil
         targetEndDate = nil
         timerState = .paused
+    }
+
+    @objc private func timerFired() {
+        tick(fireDate: Date())
     }
 
     private func tick(fireDate: Date) {
@@ -113,8 +116,8 @@ final class TimerModel: ObservableObject {
         }
 
         if remainingSeconds == 0 {
-            timerCancellable?.cancel()
-            timerCancellable = nil
+            timer?.invalidate()
+            timer = nil
             targetEndDate = nil
             timerState = .stopped
             lastCompletedSession = currentSession
@@ -145,8 +148,8 @@ final class TimerModel: ObservableObject {
     func finishEarly() {
         guard timerState == .running || timerState == .paused else { return }
 
-        timerCancellable?.cancel()
-        timerCancellable = nil
+        timer?.invalidate()
+        timer = nil
         targetEndDate = nil
         timerState = .stopped
 
