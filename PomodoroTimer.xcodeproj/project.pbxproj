@@ -16,6 +16,7 @@
 		D0A195C2BE611CC517E7465B /* TimeFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6CD7864B78D4CA1280D0F /* TimeFormatting.swift */; };
 		FE4EBF51A75F0C53B68635B2 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC7E9EB0B3A88160DE77EDE /* TimerModel.swift */; };
 		A1C3D4E5F6B7890123456789 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D4E6F7A8C0123456789ABC /* AudioManager.swift */; };
+		D4F6A8B0C2E4135678901ABC /* tick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = C3E5F7A9B1D3024567890DEF /* tick.aiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		EFC7E9EB0B3A88160DE77EDE /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		F0E6CD7864B78D4CA1280D0F /* TimeFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
 		B2D4E6F7A8C0123456789ABC /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		C3E5F7A9B1D3024567890DEF /* tick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = tick.aiff; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -78,12 +80,21 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		E5A7B9C1D3F5246789012DEF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C3E5F7A9B1D3024567890DEF /* tick.aiff */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		FF15F70EE610326A48CE557A /* PomodoroTimer */ = {
 			isa = PBXGroup;
 			children = (
 				60B8AE631139AB953E8D1219 /* PomodoroTimer.entitlements */,
 				B52FC923A390609C4DF94B1A /* PomodoroTimerApp.swift */,
 				84E8FF6B15CE267E9E192C55 /* Models */,
+				E5A7B9C1D3F5246789012DEF /* Resources */,
 				F645EF7788EA8B3CD6534BA8 /* Utilities */,
 				3314909FD17F3B348B8640F9 /* Views */,
 			);
@@ -98,6 +109,7 @@
 			buildConfigurationList = 9636B51DD74B9C958278E9B5 /* Build configuration list for PBXNativeTarget "PomodoroTimer" */;
 			buildPhases = (
 				6152AE08A481973F9EAEBA49 /* Sources */,
+				F6B8CAD2E4A6357890123DEF /* Resources */,
 			);
 			buildRules = (
 			);
@@ -137,6 +149,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F6B8CAD2E4A6357890123DEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4F6A8B0C2E4135678901ABC /* tick.aiff in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6152AE08A481973F9EAEBA49 /* Sources */ = {
