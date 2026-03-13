@@ -55,6 +55,19 @@ struct TimerPopoverView: View {
             Toggle("Tick Sound", isOn: $timer.tickSoundEnabled)
                 .controlSize(.small)
 
+            if timer.tickSoundEnabled {
+                HStack(spacing: 4) {
+                    Image(systemName: "speaker.fill")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                    Slider(value: $timer.tickVolume, in: 0...1)
+                        .controlSize(.small)
+                    Image(systemName: "speaker.wave.3.fill")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
             }

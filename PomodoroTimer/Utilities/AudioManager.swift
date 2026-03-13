@@ -10,8 +10,9 @@ struct AudioManager {
         NSSound(named: "Glass")?.play()
     }
 
-    func playTickSound() {
+    func playTickSound(volume: Float) {
         DispatchQueue.global(qos: .userInteractive).async {
+            tickSound?.volume = volume
             tickSound?.stop()
             tickSound?.play()
         }

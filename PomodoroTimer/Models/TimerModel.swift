@@ -10,6 +10,9 @@ final class TimerModel: NSObject, ObservableObject {
     @Published var tickSoundEnabled: Bool {
         didSet { UserDefaults.standard.set(tickSoundEnabled, forKey: "tickSoundEnabled") }
     }
+    @Published var tickVolume: Float {
+        didSet { UserDefaults.standard.set(tickVolume, forKey: "tickVolume") }
+    }
 
     private(set) var currentSession: Session?
     private(set) var lastCompletedSession: Session?
@@ -49,6 +52,11 @@ final class TimerModel: NSObject, ObservableObject {
             self.tickSoundEnabled = true
         } else {
             self.tickSoundEnabled = defaults.bool(forKey: "tickSoundEnabled")
+        }
+        if defaults.object(forKey: "tickVolume") == nil {
+            self.tickVolume = 0.5
+        } else {
+            self.tickVolume = defaults.float(forKey: "tickVolume")
         }
         super.init()
     }
@@ -112,7 +120,7 @@ final class TimerModel: NSObject, ObservableObject {
         remainingSeconds = newRemaining
 
         if remainingSeconds > 0 && tickSoundEnabled {
-            audioManager.playTickSound()
+            audioManager.playTickSound(volume: tickVolume)
         }
 
         if remainingSeconds == 0 {
