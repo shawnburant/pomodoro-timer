@@ -4,6 +4,7 @@ struct ControlButtonsView: View {
     let timerState: TimerState
     let onStartPause: () -> Void
     let onReset: () -> Void
+    let onFinish: () -> Void
 
     private var startPauseLabel: String {
         switch timerState {
@@ -21,6 +22,13 @@ struct ControlButtonsView: View {
             }
             .controlSize(.large)
             .keyboardShortcut(.return, modifiers: [])
+
+            Button(action: onFinish) {
+                Text("Finish")
+                    .frame(maxWidth: .infinity)
+            }
+            .controlSize(.large)
+            .disabled(timerState == .stopped)
 
             Button(action: onReset) {
                 Text("Reset")

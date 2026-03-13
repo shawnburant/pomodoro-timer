@@ -12,6 +12,7 @@ final class TimerModel: ObservableObject {
     private(set) var currentSession: Session?
     private(set) var lastCompletedSession: Session?
 
+    private let audioManager = AudioManager()
     private var timerCancellable: AnyCancellable?
     private var lastTickDate: Date?
 
@@ -107,6 +108,7 @@ final class TimerModel: ObservableObject {
             timerState = .stopped
             lastCompletedSession = currentSession
             currentSession = nil
+            audioManager.playCompletionSound()
             advanceCycle()
         }
     }
@@ -127,6 +129,29 @@ final class TimerModel: ObservableObject {
             sessionType = .work
         }
         remainingSeconds = sessionType.duration
+    }
+
+    func finishEarly() {
+        guard timerState == .running || timerState == .paused else { return }
+
+        timerCancellable?.cancel()
+        timerCancellable = nil
+        lastTickDate = nil
+        timerState = .stopped
+
+        let elapsed = sessionType.duration - remainingSeconds
+        if var session = currentSession {
+            session = Session(
+                label: session.label,
+                sessionType: session.sessionType,
+                startTime: session.startTime,
+                duration: elapsed
+            )
+            lastCompletedSession = session
+        }
+        currentSession = nil
+        audioManager.playCompletionSound()
+        advanceCycle()
     }
 
     func repeatSession() {

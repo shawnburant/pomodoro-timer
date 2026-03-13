@@ -31,7 +31,8 @@ struct TimerPopoverView: View {
             ControlButtonsView(
                 timerState: timer.timerState,
                 onStartPause: timer.startPause,
-                onReset: timer.stopReset
+                onReset: timer.stopReset,
+                onFinish: timer.finishEarly
             )
 
             HStack(spacing: 12) {

@@ -8,7 +8,11 @@ struct PomodoroTimerApp: App {
         MenuBarExtra {
             TimerPopoverView(timer: timer)
         } label: {
-            Text(timer.menuBarTitle)
+            if timer.timerState == .stopped {
+                Image(systemName: timer.sessionType == .work ? "timer" : "cup.and.saucer.fill")
+            } else {
+                Text(timer.menuBarTitle)
+            }
         }
         .menuBarExtraStyle(.window)
     }
