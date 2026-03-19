@@ -14,10 +14,13 @@ final class TimerModel: NSObject, ObservableObject {
         didSet { UserDefaults.standard.set(tickVolume, forKey: "tickVolume") }
     }
 
+    var onNewSessionFromHotkey: (() -> Void)?
+
     private(set) var currentSession: Session?
     private(set) var lastCompletedSession: Session?
 
     private let audioManager = AudioManager()
+    private var hotKeyManager: HotKeyManager?
     private var timer: Timer?
     private var targetEndDate: Date?
 
@@ -59,6 +62,7 @@ final class TimerModel: NSObject, ObservableObject {
             self.tickVolume = defaults.float(forKey: "tickVolume")
         }
         super.init()
+        hotKeyManager = HotKeyManager(timerModel: self)
     }
 
     func startPause() {

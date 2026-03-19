@@ -1,5 +1,19 @@
 import SwiftUI
 
+private struct ShortcutRow: View {
+    let keys: String
+    let label: String
+
+    var body: some View {
+        HStack {
+            Text(label)
+            Spacer()
+            Text(keys)
+                .monospacedDigit()
+        }
+    }
+}
+
 struct TimerPopoverView: View {
     @ObservedObject var timer: TimerModel
 
@@ -49,6 +63,16 @@ struct TimerPopoverView: View {
                 }
                 .controlSize(.large)
             }
+
+            Divider()
+
+            VStack(spacing: 2) {
+                ShortcutRow(keys: "⌘⇧S", label: "Start / Pause")
+                ShortcutRow(keys: "⌘⇧R", label: "Reset")
+                ShortcutRow(keys: "⌘⇧N", label: "New Session")
+            }
+            .font(.caption)
+            .foregroundStyle(.secondary)
 
             Divider()
 

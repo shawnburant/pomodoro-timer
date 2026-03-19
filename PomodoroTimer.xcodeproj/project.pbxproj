@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		090BCDF812BF8E0DAF5C2037 /* HotKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C729579EF883AD83C3CB195 /* HotKeyManager.swift */; };
 		20588BB71B1208534673C561 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938EDCD7DB26774AE0CA6272 /* TimerState.swift */; };
+		366BC3F810C16AB059D1052C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4154138123C9BA45227F58 /* AppDelegate.swift */; };
 		9FE633563CE0B766457AAAD6 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1856A155F7B308CE6F80D5 /* AudioManager.swift */; };
 		A01E73414AE0D3469C6BC6C6 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DAF006057532729E9193FD2 /* NotificationManager.swift */; };
 		A5BA01720A8093C0D7199AA1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB93E33D4383D4CA0CA9242 /* Session.swift */; };
@@ -22,9 +24,11 @@
 
 /* Begin PBXFileReference section */
 		1B5F156202761C5D9831B7E5 /* TimerDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDisplayView.swift; sourceTree = "<group>"; };
+		2C729579EF883AD83C3CB195 /* HotKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyManager.swift; sourceTree = "<group>"; };
 		437498CE2A3B1879310525BE /* ControlButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtonsView.swift; sourceTree = "<group>"; };
 		5DAF006057532729E9193FD2 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		60B8AE631139AB953E8D1219 /* PomodoroTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PomodoroTimer.entitlements; sourceTree = "<group>"; };
+		6C4154138123C9BA45227F58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D4121038FE7FCFC70424658 /* PomodoroTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92503A0445EF073AEB1538C7 /* TimerPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerPopoverView.swift; sourceTree = "<group>"; };
 		938EDCD7DB26774AE0CA6272 /* TimerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				BE1856A155F7B308CE6F80D5 /* AudioManager.swift */,
+				2C729579EF883AD83C3CB195 /* HotKeyManager.swift */,
 				5DAF006057532729E9193FD2 /* NotificationManager.swift */,
 				F0E6CD7864B78D4CA1280D0F /* TimeFormatting.swift */,
 			);
@@ -94,6 +99,7 @@
 		FF15F70EE610326A48CE557A /* PomodoroTimer */ = {
 			isa = PBXGroup;
 			children = (
+				6C4154138123C9BA45227F58 /* AppDelegate.swift */,
 				60B8AE631139AB953E8D1219 /* PomodoroTimer.entitlements */,
 				B52FC923A390609C4DF94B1A /* PomodoroTimerApp.swift */,
 				84E8FF6B15CE267E9E192C55 /* Models */,
@@ -169,8 +175,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				366BC3F810C16AB059D1052C /* AppDelegate.swift in Sources */,
 				9FE633563CE0B766457AAAD6 /* AudioManager.swift in Sources */,
 				B7B7BB5782B5019ADCF6E289 /* ControlButtonsView.swift in Sources */,
+				090BCDF812BF8E0DAF5C2037 /* HotKeyManager.swift in Sources */,
 				A01E73414AE0D3469C6BC6C6 /* NotificationManager.swift in Sources */,
 				BC7360998E1C790E3B83B090 /* PomodoroTimerApp.swift in Sources */,
 				A5BA01720A8093C0D7199AA1 /* Session.swift in Sources */,

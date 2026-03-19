@@ -62,12 +62,12 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 - [ ] Add notification actions (Start Break, Skip Break, etc.)
 
 ## Phase 6: Keyboard Shortcuts
-- [ ] Set up global keyboard shortcut listener
-- [ ] Implement default shortcuts:
+- [x] Set up global keyboard shortcut listener
+- [x] Implement default shortcuts:
   - Cmd+Shift+S: Start/Pause
   - Cmd+Shift+R: Reset/Stop
   - Cmd+Shift+N: New Session
-- [ ] Add keyboard shortcut display in popover
+- [x] Add keyboard shortcut display in popover
 - [ ] (Future: Make shortcuts configurable in settings)
 
 ## Phase 7: Calendar Integration
