@@ -82,7 +82,7 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 - [x] Add toggle to enable/disable calendar logging
 
 ## Phase 8: Polish & UX
-- [ ] Design proper menu bar icon (tomato with countdown)
+- [x] Design proper menu bar icon (tomato with countdown)
 - [x] Add app icon
 - [ ] Create preferences/settings window (accessible from menu)
 - [x] Add "About" menu item

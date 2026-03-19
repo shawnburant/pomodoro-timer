@@ -74,12 +74,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func updateStatusButton() {
         guard let button = statusItem.button else { return }
         if timerModel.timerState == .stopped {
-            let symbolName = timerModel.sessionType == .work ? "timer" : "cup.and.saucer.fill"
-            button.image = NSImage(systemSymbolName: symbolName, accessibilityDescription: nil)
+            let emoji = timerModel.sessionType == .work ? "🍅" : "☕"
+            button.image = emojiImage(emoji, size: 18)
             button.title = ""
         } else {
             button.image = nil
             button.title = timerModel.menuBarTitle
         }
+    }
+
+    private func emojiImage(_ emoji: String, size: CGFloat) -> NSImage {
+        let image = NSImage(size: NSSize(width: size, height: size))
+        image.lockFocus()
+        (emoji as NSString).draw(
+            at: NSPoint(x: 0, y: -2),
+            withAttributes: [.font: NSFont.systemFont(ofSize: size)]
+        )
+        image.unlockFocus()
+        image.isTemplate = false
+        return image
     }
 }
