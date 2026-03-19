@@ -31,16 +31,28 @@ A minimal macOS menu bar Pomodoro timer. Stays out of your way until you need it
 - Xcode 16+
 - [xcodegen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
 
-## Building
+## Installation
+
+Clone the repo and run the install script:
 
 ```bash
 git clone https://github.com/shawnburant/pomodoro-timer.git
 cd pomodoro-timer
+./install.sh
+```
+
+This builds a Release binary, installs it to `/Applications`, and launches it. The first time macOS may block it since it's unsigned — right-click the app → **Open** → **Open** to bypass Gatekeeper once.
+
+To launch automatically on login, go to **System Settings → General → Login Items** and add PomodoroTimer.
+
+## Building for Development
+
+```bash
 xcodegen generate
 open PomodoroTimer.xcodeproj
 ```
 
-Then press **Cmd+R** to build and run.
+Then press **Cmd+R** to build and run in debug mode.
 
 ## Permissions
 
