@@ -87,9 +87,10 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 - [ ] Create preferences/settings window (accessible from menu)
 - [ ] Add "About" menu item
 - [ ] Add "Quit" menu item
-- [ ] Ensure app survives system sleep/wake
+- [x] Ensure app survives system sleep/wake
 - [ ] Test timer accuracy over long periods
 - [ ] Add basic error handling and logging
+- [x] Editable timer duration (click display to set MM:SS)
 
 ## Technical Notes
 - Use `NSStatusBar.system.statusItem()` for menu bar

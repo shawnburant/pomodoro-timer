@@ -39,7 +39,9 @@ struct TimerPopoverView: View {
 
             TimerDisplayView(
                 remainingSeconds: timer.remainingSeconds,
-                sessionType: timer.sessionType
+                sessionType: timer.sessionType,
+                isEditable: timer.timerState == .stopped,
+                onDurationChange: timer.setCurrentDuration
             )
 
             ControlButtonsView(

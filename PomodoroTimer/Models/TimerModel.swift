@@ -1,4 +1,5 @@
 import Foundation
+import AppKit
 
 @MainActor
 final class TimerModel: NSObject, ObservableObject {
@@ -15,6 +16,15 @@ final class TimerModel: NSObject, ObservableObject {
     }
     @Published var calendarEnabled: Bool {
         didSet { UserDefaults.standard.set(calendarEnabled, forKey: "calendarEnabled") }
+    }
+    @Published var workDuration: Int {
+        didSet { UserDefaults.standard.set(workDuration, forKey: "workDuration") }
+    }
+    @Published var shortBreakDuration: Int {
+        didSet { UserDefaults.standard.set(shortBreakDuration, forKey: "shortBreakDuration") }
+    }
+    @Published var longBreakDuration: Int {
+        didSet { UserDefaults.standard.set(longBreakDuration, forKey: "longBreakDuration") }
     }
 
     var onNewSessionFromHotkey: (() -> Void)?
@@ -52,9 +62,32 @@ final class TimerModel: NSObject, ObservableObject {
         }
     }
 
+    func duration(for type: SessionType) -> Int {
+        switch type {
+        case .work: workDuration
+        case .shortBreak: shortBreakDuration
+        case .longBreak: longBreakDuration
+        }
+    }
+
+    func setCurrentDuration(_ seconds: Int) {
+        switch sessionType {
+        case .work: workDuration = seconds
+        case .shortBreak: shortBreakDuration = seconds
+        case .longBreak: longBreakDuration = seconds
+        }
+        remainingSeconds = seconds
+    }
+
     override init() {
-        self.remainingSeconds = SessionType.work.duration
         let defaults = UserDefaults.standard
+        let work = defaults.object(forKey: "workDuration") == nil ? SessionType.work.duration : defaults.integer(forKey: "workDuration")
+        let short = defaults.object(forKey: "shortBreakDuration") == nil ? SessionType.shortBreak.duration : defaults.integer(forKey: "shortBreakDuration")
+        let long = defaults.object(forKey: "longBreakDuration") == nil ? SessionType.longBreak.duration : defaults.integer(forKey: "longBreakDuration")
+        self.workDuration = work
+        self.shortBreakDuration = short
+        self.longBreakDuration = long
+        self.remainingSeconds = work
         if defaults.object(forKey: "tickSoundEnabled") == nil {
             self.tickSoundEnabled = true
         } else {
@@ -70,6 +103,12 @@ final class TimerModel: NSObject, ObservableObject {
             : defaults.bool(forKey: "calendarEnabled")
         super.init()
         hotKeyManager = HotKeyManager(timerModel: self)
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(systemDidWake),
+            name: NSWorkspace.didWakeNotification,
+            object: nil
+        )
     }
 
     func startPause() {
@@ -89,7 +128,7 @@ final class TimerModel: NSObject, ObservableObject {
         targetEndDate = nil
         timerState = .stopped
         currentSession = nil
-        remainingSeconds = sessionType.duration
+        remainingSeconds = duration(for: sessionType)
     }
 
     private func start() {
@@ -101,7 +140,7 @@ final class TimerModel: NSObject, ObservableObject {
                 label: sessionLabel,
                 sessionType: sessionType,
                 startTime: Date(),
-                duration: sessionType.duration
+                duration: duration(for: sessionType)
             )
         }
 
@@ -117,6 +156,17 @@ final class TimerModel: NSObject, ObservableObject {
         timer = nil
         targetEndDate = nil
         timerState = .paused
+    }
+
+    @objc private func systemDidWake() {
+        guard timerState == .running else { return }
+        timer?.invalidate()
+        timer = nil
+        let now = Date().timeIntervalSinceReferenceDate
+        let nextSecond = Date(timeIntervalSinceReferenceDate: ceil(now))
+        let t = Timer(fireAt: nextSecond, interval: 1.0, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
+        RunLoop.main.add(t, forMode: .common)
+        timer = t
     }
 
     @objc private func timerFired() {
@@ -167,7 +217,7 @@ final class TimerModel: NSObject, ObservableObject {
             completedWorkSessions = 0
             sessionType = .work
         }
-        remainingSeconds = sessionType.duration
+        remainingSeconds = duration(for: sessionType)
     }
 
     func finishEarly() {
@@ -178,7 +228,7 @@ final class TimerModel: NSObject, ObservableObject {
         targetEndDate = nil
         timerState = .stopped
 
-        let elapsed = sessionType.duration - remainingSeconds
+        let elapsed = duration(for: sessionType) - remainingSeconds
         if var session = currentSession {
             session = Session(
                 label: session.label,
@@ -210,7 +260,7 @@ final class TimerModel: NSObject, ObservableObject {
         guard let last = lastCompletedSession else { return }
         sessionLabel = last.label
         sessionType = last.sessionType
-        remainingSeconds = last.sessionType.duration
+        remainingSeconds = duration(for: last.sessionType)
         lastCompletedSession = nil
         startPause()
     }
@@ -219,7 +269,7 @@ final class TimerModel: NSObject, ObservableObject {
         stopReset()
         sessionLabel = ""
         sessionType = .work
-        remainingSeconds = SessionType.work.duration
+        remainingSeconds = workDuration
         completedWorkSessions = 0
         lastCompletedSession = nil
     }
