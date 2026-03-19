@@ -76,6 +76,9 @@ struct TimerPopoverView: View {
 
             Divider()
 
+            Toggle("Log to Calendar", isOn: $timer.calendarEnabled)
+                .controlSize(.small)
+
             Toggle("Tick Sound", isOn: $timer.tickSoundEnabled)
                 .controlSize(.small)
 

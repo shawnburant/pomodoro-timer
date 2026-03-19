@@ -71,15 +71,15 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 - [ ] (Future: Make shortcuts configurable in settings)
 
 ## Phase 7: Calendar Integration
-- [ ] Request calendar access permissions
-- [ ] Create/access "Pomodoro" calendar (or let user choose)
-- [ ] When work session completes, create calendar event:
+- [x] Request calendar access permissions
+- [x] Create/access "Pomodoro" calendar (or let user choose)
+- [x] When work session completes, create calendar event:
   - Title: Session label
   - Start time: Actual start time
   - Duration: 25 minutes
   - Notes: "Pomodoro session"
-- [ ] Handle calendar permission denials gracefully
-- [ ] Add toggle to enable/disable calendar logging
+- [x] Handle calendar permission denials gracefully
+- [x] Add toggle to enable/disable calendar logging
 
 ## Phase 8: Polish & UX
 - [ ] Design proper menu bar icon (tomato with countdown)

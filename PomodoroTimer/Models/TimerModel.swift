@@ -13,6 +13,9 @@ final class TimerModel: NSObject, ObservableObject {
     @Published var tickVolume: Float {
         didSet { UserDefaults.standard.set(tickVolume, forKey: "tickVolume") }
     }
+    @Published var calendarEnabled: Bool {
+        didSet { UserDefaults.standard.set(calendarEnabled, forKey: "calendarEnabled") }
+    }
 
     var onNewSessionFromHotkey: (() -> Void)?
 
@@ -20,6 +23,7 @@ final class TimerModel: NSObject, ObservableObject {
     private(set) var lastCompletedSession: Session?
 
     private let audioManager = AudioManager()
+    private let calendarManager = CalendarManager()
     private var hotKeyManager: HotKeyManager?
     private var timer: Timer?
     private var targetEndDate: Date?
@@ -61,6 +65,9 @@ final class TimerModel: NSObject, ObservableObject {
         } else {
             self.tickVolume = defaults.float(forKey: "tickVolume")
         }
+        self.calendarEnabled = defaults.object(forKey: "calendarEnabled") == nil
+            ? false
+            : defaults.bool(forKey: "calendarEnabled")
         super.init()
         hotKeyManager = HotKeyManager(timerModel: self)
     }
@@ -139,6 +146,9 @@ final class TimerModel: NSObject, ObservableObject {
             audioManager.playCompletionSound()
             advanceCycle()
             sendCompletionNotification(for: completedType, label: completedLabel)
+            if completedType == .work, calendarEnabled, let session = lastCompletedSession {
+                Task { await calendarManager.logSession(session) }
+            }
         }
     }
 
@@ -178,9 +188,13 @@ final class TimerModel: NSObject, ObservableObject {
             )
             lastCompletedSession = session
         }
+        let wasWork = sessionType == .work
         currentSession = nil
         audioManager.playCompletionSound()
         advanceCycle()
+        if wasWork, calendarEnabled, let session = lastCompletedSession {
+            Task { await calendarManager.logSession(session) }
+        }
     }
 
     private func sendCompletionNotification(for type: SessionType, label: String) {
