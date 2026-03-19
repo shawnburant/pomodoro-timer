@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		090BCDF812BF8E0DAF5C2037 /* HotKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C729579EF883AD83C3CB195 /* HotKeyManager.swift */; };
 		20588BB71B1208534673C561 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938EDCD7DB26774AE0CA6272 /* TimerState.swift */; };
+		28FF65B2AB7EF0FFFA5014A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FF76E08FB3005FCBB5A5017 /* Assets.xcassets */; };
 		366BC3F810C16AB059D1052C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4154138123C9BA45227F58 /* AppDelegate.swift */; };
 		8F893F6645704CE069F146DC /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EAFBE46A5B8AF03478321A /* CalendarManager.swift */; };
 		9FE633563CE0B766457AAAD6 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1856A155F7B308CE6F80D5 /* AudioManager.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		1B5F156202761C5D9831B7E5 /* TimerDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDisplayView.swift; sourceTree = "<group>"; };
 		2C729579EF883AD83C3CB195 /* HotKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyManager.swift; sourceTree = "<group>"; };
+		2FF76E08FB3005FCBB5A5017 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		437498CE2A3B1879310525BE /* ControlButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtonsView.swift; sourceTree = "<group>"; };
 		5DAF006057532729E9193FD2 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		60B8AE631139AB953E8D1219 /* PomodoroTimer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PomodoroTimer.entitlements; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				6C4154138123C9BA45227F58 /* AppDelegate.swift */,
+				2FF76E08FB3005FCBB5A5017 /* Assets.xcassets */,
 				60B8AE631139AB953E8D1219 /* PomodoroTimer.entitlements */,
 				B52FC923A390609C4DF94B1A /* PomodoroTimerApp.swift */,
 				84E8FF6B15CE267E9E192C55 /* Models */,
@@ -167,6 +170,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28FF65B2AB7EF0FFFA5014A9 /* Assets.xcassets in Resources */,
 				D2550729323D57FE93AD6ECD /* tick.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +274,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "Pomodoro logs completed work sessions to your calendar.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Shawn Burant";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -291,6 +296,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription = "Pomodoro logs completed work sessions to your calendar.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Shawn Burant";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

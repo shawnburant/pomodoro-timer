@@ -14,7 +14,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         statusItem.button?.target = self
-        statusItem.button?.action = #selector(togglePopover)
+        statusItem.button?.action = #selector(handleStatusItemClick)
+        statusItem.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
 
         let hostingController = NSHostingController(rootView: TimerPopoverView(timer: timerModel))
         popover = NSPopover()
@@ -32,12 +33,36 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         updateStatusButton()
     }
 
-    @objc func togglePopover() {
+    @objc func handleStatusItemClick() {
+        guard let event = NSApp.currentEvent else { return }
+        if event.type == .rightMouseUp {
+            showContextMenu()
+        } else {
+            togglePopover()
+        }
+    }
+
+    func togglePopover() {
         if popover.isShown {
             popover.performClose(nil)
         } else {
             showPopover()
         }
+    }
+
+    private func showContextMenu() {
+        let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "About Pomodoro Timer", action: #selector(showAbout), keyEquivalent: ""))
+        menu.addItem(.separator())
+        menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+        statusItem.menu = menu
+        statusItem.button?.performClick(nil)
+        statusItem.menu = nil
+    }
+
+    @objc private func showAbout() {
+        NSApp.activate(ignoringOtherApps: true)
+        NSApp.orderFrontStandardAboutPanel(nil)
     }
 
     func showPopover() {
