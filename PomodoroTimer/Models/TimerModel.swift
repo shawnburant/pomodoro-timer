@@ -32,6 +32,8 @@ final class TimerModel: NSObject, ObservableObject {
     private(set) var currentSession: Session?
     private(set) var lastCompletedSession: Session?
 
+    let taskStore = TaskStore()
+
     private let audioManager = AudioManager()
     private let calendarManager = CalendarManager()
     private var hotKeyManager: HotKeyManager?
@@ -196,8 +198,11 @@ final class TimerModel: NSObject, ObservableObject {
             audioManager.playCompletionSound()
             advanceCycle()
             sendCompletionNotification(for: completedType, label: completedLabel)
-            if completedType == .work, calendarEnabled, let session = lastCompletedSession {
-                Task { await calendarManager.logSession(session) }
+            if completedType == .work, let session = lastCompletedSession {
+                taskStore.appendSession(session, toTaskNamed: session.label)
+                if calendarEnabled {
+                    Task { await calendarManager.logSession(session) }
+                }
             }
         }
     }
@@ -242,8 +247,11 @@ final class TimerModel: NSObject, ObservableObject {
         currentSession = nil
         audioManager.playCompletionSound()
         advanceCycle()
-        if wasWork, calendarEnabled, let session = lastCompletedSession {
-            Task { await calendarManager.logSession(session) }
+        if wasWork, let session = lastCompletedSession {
+            taskStore.appendSession(session, toTaskNamed: session.label)
+            if calendarEnabled {
+                Task { await calendarManager.logSession(session) }
+            }
         }
     }
 
@@ -272,5 +280,12 @@ final class TimerModel: NSObject, ObservableObject {
         remainingSeconds = workDuration
         completedWorkSessions = 0
         lastCompletedSession = nil
+    }
+
+    func switchToTask(_ task: PomodoroTask) {
+        guard timerState == .stopped else { return }
+        sessionLabel = task.name
+        sessionType = .work
+        remainingSeconds = workDuration
     }
 }

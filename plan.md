@@ -100,6 +100,15 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 - Store audio files in app bundle's Resources
 - Consider using SwiftUI's `@StateObject` for timer state
 
+## Phase 9: Task Management & History
+- [x] Create `PomodoroTask` model — named goal that accumulates work sessions over time
+- [x] Create `TaskStore` — persists tasks via `UserDefaults` (JSON), handles find-or-create by name
+- [x] Integrate `TaskStore` into `TimerModel` — work sessions auto-appended on completion (tick and finishEarly)
+- [x] Add `switchToTask()` to `TimerModel` — pre-fills label and resets timer when tapping a task row
+- [x] Build `TasksView` — active/completed sections, 🍅 count per task, context menus (Mark Complete / Delete)
+- [x] Add Timer | Tasks segmented tab picker to `TimerPopoverView`
+- [x] Make `Session` and `SessionType` `Codable` for persistence
+
 ## Future Enhancements (Not in Initial Build)
 - Configurable timer durations
 - Statistics dashboard

@@ -6,10 +6,10 @@ enum TimerState {
     case paused
 }
 
-enum SessionType: CaseIterable {
-    case work
-    case shortBreak
-    case longBreak
+enum SessionType: String, CaseIterable, Codable {
+    case work = "work"
+    case shortBreak = "shortBreak"
+    case longBreak = "longBreak"
 
     var displayName: String {
         switch self {

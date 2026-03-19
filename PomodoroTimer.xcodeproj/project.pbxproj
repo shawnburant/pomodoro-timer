@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		090BCDF812BF8E0DAF5C2037 /* HotKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C729579EF883AD83C3CB195 /* HotKeyManager.swift */; };
+		1A2B3C4D5E6F7A8B9C0D1E2F /* PomodoroTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3C4D5E6F7A8B9C0D1E2F3A /* PomodoroTask.swift */; };
+		3C4D5E6F7A8B9C0D1E2F3A4B /* TaskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5E6F7A8B9C0D1E2F3A4B5C /* TaskStore.swift */; };
+		5E6F7A8B9C0D1E2F3A4B5C6D /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A8B9C0D1E2F3A4B5C6D7E /* TasksView.swift */; };
 		20588BB71B1208534673C561 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938EDCD7DB26774AE0CA6272 /* TimerState.swift */; };
 		28FF65B2AB7EF0FFFA5014A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FF76E08FB3005FCBB5A5017 /* Assets.xcassets */; };
 		366BC3F810C16AB059D1052C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4154138123C9BA45227F58 /* AppDelegate.swift */; };
@@ -26,6 +29,9 @@
 
 /* Begin PBXFileReference section */
 		1B5F156202761C5D9831B7E5 /* TimerDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDisplayView.swift; sourceTree = "<group>"; };
+		2B3C4D5E6F7A8B9C0D1E2F3A /* PomodoroTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTask.swift; sourceTree = "<group>"; };
+		4D5E6F7A8B9C0D1E2F3A4B5C /* TaskStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStore.swift; sourceTree = "<group>"; };
+		6F7A8B9C0D1E2F3A4B5C6D7E /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		2C729579EF883AD83C3CB195 /* HotKeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyManager.swift; sourceTree = "<group>"; };
 		2FF76E08FB3005FCBB5A5017 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		437498CE2A3B1879310525BE /* ControlButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtonsView.swift; sourceTree = "<group>"; };
@@ -49,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				437498CE2A3B1879310525BE /* ControlButtonsView.swift */,
+				6F7A8B9C0D1E2F3A4B5C6D7E /* TasksView.swift */,
 				1B5F156202761C5D9831B7E5 /* TimerDisplayView.swift */,
 				92503A0445EF073AEB1538C7 /* TimerPopoverView.swift */,
 			);
@@ -58,6 +65,7 @@
 		84E8FF6B15CE267E9E192C55 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2B3C4D5E6F7A8B9C0D1E2F3A /* PomodoroTask.swift */,
 				ABB93E33D4383D4CA0CA9242 /* Session.swift */,
 				EFC7E9EB0B3A88160DE77EDE /* TimerModel.swift */,
 				938EDCD7DB26774AE0CA6272 /* TimerState.swift */,
@@ -96,6 +104,7 @@
 				73EAFBE46A5B8AF03478321A /* CalendarManager.swift */,
 				2C729579EF883AD83C3CB195 /* HotKeyManager.swift */,
 				5DAF006057532729E9193FD2 /* NotificationManager.swift */,
+				4D5E6F7A8B9C0D1E2F3A4B5C /* TaskStore.swift */,
 				F0E6CD7864B78D4CA1280D0F /* TimeFormatting.swift */,
 			);
 			path = Utilities;
@@ -188,8 +197,11 @@
 				B7B7BB5782B5019ADCF6E289 /* ControlButtonsView.swift in Sources */,
 				090BCDF812BF8E0DAF5C2037 /* HotKeyManager.swift in Sources */,
 				A01E73414AE0D3469C6BC6C6 /* NotificationManager.swift in Sources */,
+				1A2B3C4D5E6F7A8B9C0D1E2F /* PomodoroTask.swift in Sources */,
 				BC7360998E1C790E3B83B090 /* PomodoroTimerApp.swift in Sources */,
 				A5BA01720A8093C0D7199AA1 /* Session.swift in Sources */,
+				3C4D5E6F7A8B9C0D1E2F3A4B /* TaskStore.swift in Sources */,
+				5E6F7A8B9C0D1E2F3A4B5C6D /* TasksView.swift in Sources */,
 				D0A195C2BE611CC517E7465B /* TimeFormatting.swift in Sources */,
 				B529869B388744EA9AE0C2F9 /* TimerDisplayView.swift in Sources */,
 				FE4EBF51A75F0C53B68635B2 /* TimerModel.swift in Sources */,

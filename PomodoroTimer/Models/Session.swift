@@ -1,6 +1,6 @@
 import Foundation
 
-struct Session {
+struct Session: Codable {
     let label: String
     let sessionType: SessionType
     let startTime: Date

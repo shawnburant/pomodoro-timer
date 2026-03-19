@@ -14,10 +14,33 @@ private struct ShortcutRow: View {
     }
 }
 
+private enum PopoverTab {
+    case timer, tasks
+}
+
 struct TimerPopoverView: View {
     @ObservedObject var timer: TimerModel
+    @State private var selectedTab: PopoverTab = .timer
 
     var body: some View {
+        VStack(spacing: 16) {
+            Picker("", selection: $selectedTab) {
+                Text("Timer").tag(PopoverTab.timer)
+                Text("Tasks").tag(PopoverTab.tasks)
+            }
+            .pickerStyle(.segmented)
+
+            if selectedTab == .timer {
+                timerContent
+            } else {
+                TasksView(timer: timer)
+            }
+        }
+        .padding(20)
+        .frame(width: 240)
+    }
+
+    private var timerContent: some View {
         VStack(spacing: 16) {
             TextField("What are you working on?", text: $timer.sessionLabel)
                 .textFieldStyle(.roundedBorder)
@@ -103,7 +126,5 @@ struct TimerPopoverView: View {
             .controlSize(.small)
             .foregroundStyle(.secondary)
         }
-        .padding(20)
-        .frame(width: 240)
     }
 }
