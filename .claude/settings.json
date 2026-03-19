@@ -1,14 +1,1 @@
-{
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "jq -r '.prompt // \"\"' | { read -r p; if echo \"$p\" | grep -qi '^lgtm[[:space:]]*$'; then printf '{\"hookSpecificOutput\":{\"hookEventName\":\"UserPromptSubmit\",\"additionalContext\":\"The user has approved with \\\"lgtm\\\". Update plan.md and README.md to reflect all changes made this session, then commit everything and push to origin. Do this now.\"}}'; fi; }"
-          }
-        ]
-      }
-    ]
-  }
-}
+{}
