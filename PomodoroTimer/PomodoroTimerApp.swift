@@ -4,6 +4,10 @@ import SwiftUI
 struct PomodoroTimerApp: App {
     @StateObject private var timer = TimerModel()
 
+    init() {
+        NotificationManager.requestPermission()
+    }
+
     var body: some Scene {
         MenuBarExtra {
             TimerPopoverView(timer: timer)

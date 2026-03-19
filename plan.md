@@ -21,44 +21,44 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 - UserDefaults for settings persistence
 
 ## Phase 1: Core Timer Functionality
-- [ ] Set up Xcode project with SwiftUI lifecycle
-- [ ] Create menu bar status item with basic icon
-- [ ] Implement Timer model with states (running, paused, stopped)
-- [ ] Build countdown logic (25 min default)
-- [ ] Display countdown in menu bar (update every second)
-- [ ] Create popover UI with timer display and basic controls
-- [ ] Add Start/Pause button
-- [ ] Add Stop/Reset button
-- [ ] Add visual state indication (work vs break)
+- [x] Set up Xcode project with SwiftUI lifecycle
+- [x] Create menu bar status item with basic icon
+- [x] Implement Timer model with states (running, paused, stopped)
+- [x] Build countdown logic (25 min default)
+- [x] Display countdown in menu bar (update every second)
+- [x] Create popover UI with timer display and basic controls
+- [x] Add Start/Pause button
+- [x] Add Stop/Reset button
+- [x] Add visual state indication (work vs break)
 
 ## Phase 2: Session Management
-- [ ] Create Session model (label, start time, duration, type)
-- [ ] Add session label text field to popover
-- [ ] Implement "Repeat Session" functionality
-- [ ] Add "New Session" action (resets label and timer)
-- [ ] Store current session state in memory
+- [x] Create Session model (label, start time, duration, type)
+- [x] Add session label text field to popover
+- [x] Implement "Repeat Session" functionality
+- [x] Add "New Session" action (resets label and timer)
+- [x] Store current session state in memory
 
 ## Phase 3: Pomodoro Flow
-- [ ] Implement full Pomodoro cycle:
+- [x] Implement full Pomodoro cycle:
   - Work session (25 min) → Short break (5 min) → repeat 3x
   - After 4th work session → Long break (15 min)
-- [ ] Auto-transition between work and breaks
-- [ ] Track Pomodoro count in current cycle
-- [ ] Display current phase in popover (Work 1/4, Break, etc.)
+- [x] Auto-transition between work and breaks
+- [x] Track Pomodoro count in current cycle
+- [x] Display current phase in popover (Work 1/4, Break, etc.)
 
 ## Phase 4: Audio Feedback
-- [ ] Add ticking sound file to project (or generate simple tick)
-- [ ] Implement audio player using AVFoundation
-- [ ] Add toggle for ticking sound in popover
-- [ ] Add completion alarm sound file
-- [ ] Play alarm when timer completes
-- [ ] Ensure audio works even when app is in background
+- [x] Add ticking sound file to project (or generate simple tick)
+- [x] Implement audio player using AVFoundation
+- [x] Add toggle for ticking sound in popover
+- [x] Add completion alarm sound file
+- [x] Play alarm when timer completes
+- [x] Ensure audio works even when app is in background
 
 ## Phase 5: Notifications
-- [ ] Request notification permissions on first launch
-- [ ] Send notification when work session completes
-- [ ] Send notification when break completes
-- [ ] Include session label in notification content
+- [x] Request notification permissions on first launch
+- [x] Send notification when work session completes
+- [x] Send notification when break completes
+- [x] Include session label in notification content
 - [ ] Add notification actions (Start Break, Skip Break, etc.)
 
 ## Phase 6: Keyboard Shortcuts

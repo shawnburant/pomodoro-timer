@@ -129,9 +129,12 @@ final class TimerModel: NSObject, ObservableObject {
             targetEndDate = nil
             timerState = .stopped
             lastCompletedSession = currentSession
+            let completedType = sessionType
+            let completedLabel = sessionLabel
             currentSession = nil
             audioManager.playCompletionSound()
             advanceCycle()
+            sendCompletionNotification(for: completedType, label: completedLabel)
         }
     }
 
@@ -174,6 +177,15 @@ final class TimerModel: NSObject, ObservableObject {
         currentSession = nil
         audioManager.playCompletionSound()
         advanceCycle()
+    }
+
+    private func sendCompletionNotification(for type: SessionType, label: String) {
+        switch type {
+        case .work:
+            NotificationManager.sendWorkSessionComplete(label: label)
+        case .shortBreak, .longBreak:
+            NotificationManager.sendBreakComplete()
+        }
     }
 
     func repeatSession() {
