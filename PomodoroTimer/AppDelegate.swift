@@ -84,11 +84,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func emojiImage(_ emoji: String, size: CGFloat) -> NSImage {
+        let fontSize: CGFloat = size - 5   // emoji glyphs overshoot their point size; keep within canvas
         let image = NSImage(size: NSSize(width: size, height: size))
         image.lockFocus()
         (emoji as NSString).draw(
-            at: NSPoint(x: 0, y: -2),
-            withAttributes: [.font: NSFont.systemFont(ofSize: size)]
+            at: NSPoint(x: 0, y: 2),
+            withAttributes: [.font: NSFont.systemFont(ofSize: fontSize)]
         )
         image.unlockFocus()
         image.isTemplate = false
