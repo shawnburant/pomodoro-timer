@@ -57,6 +57,13 @@ final class TaskStore: ObservableObject {
         save()
     }
 
+    func addTask(_ name: String) {
+        let trimmed = name.trimmingCharacters(in: .whitespaces)
+        guard !trimmed.isEmpty else { return }
+        tasks.insert(PomodoroTask(name: trimmed), at: 0)
+        save()
+    }
+
     func deleteTask(_ task: PomodoroTask) {
         tasks.removeAll { $0.id == task.id }
         save()

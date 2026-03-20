@@ -4,10 +4,18 @@ struct TasksView: View {
     @ObservedObject var timer: TimerModel
     @ObservedObject private var taskStore: TaskStore
     @State private var showCompleted = false
+    @State private var newTaskName = ""
+    @State private var isAddingTask = false
 
     init(timer: TimerModel) {
         self.timer = timer
         self.taskStore = timer.taskStore
+    }
+
+    private func commitNewTask() {
+        taskStore.addTask(newTaskName)
+        newTaskName = ""
+        isAddingTask = false
     }
 
     private var activeTasks: [PomodoroTask] {
@@ -28,11 +36,35 @@ struct TasksView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("Tasks")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            HStack {
+                Text("Tasks")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                Spacer()
+                Button { isAddingTask.toggle() } label: {
+                    Image(systemName: isAddingTask ? "xmark" : "plus")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+
+            if isAddingTask {
+                HStack(spacing: 6) {
+                    TextField("Task name", text: $newTaskName)
+                        .textFieldStyle(.roundedBorder)
+                        .onSubmit { commitNewTask() }
+                    Button { commitNewTask() } label: {
+                        Image(systemName: "plus.circle.fill")
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(newTaskName.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
                 .padding(.horizontal, 8)
-                .padding(.vertical, 4)
+                .padding(.bottom, 4)
+            }
 
             if activeTasks.isEmpty {
                 Text("No active tasks.")

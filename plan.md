@@ -125,6 +125,14 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 - [x] Completed section always visible (collapsible chevron toggle, not a `DisclosureGroup`)
 - [x] `TasksView` directly observes `taskStore` via `@ObservedObject` so UI updates immediately on any mutation
 
+## Phase 12: Manual Task Creation
+- [x] Add `TaskStore.addTask(_ name: String)` — trims whitespace, guards empty, inserts at index 0, saves
+- [x] Add `+`/`×` toggle button to "Tasks" header in `TasksView`
+- [x] Reveal inline `TextField` + `plus.circle.fill` submit button when adding
+- [x] Submit via Return key (`onSubmit`) or tapping the button; clears input and collapses row
+- [x] Submit button disabled when input is empty or whitespace-only
+- [x] Manually created tasks appear in Timer tab autocomplete dropdown and persist across restarts
+
 ## Future Enhancements (Not in Initial Build)
 - Configurable timer durations
 - Statistics dashboard
