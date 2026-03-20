@@ -81,6 +81,18 @@ final class TimerModel: NSObject, ObservableObject {
         remainingSeconds = seconds
     }
 
+    func updateDuration(for type: SessionType, minutes: Int) {
+        let seconds = minutes * 60
+        switch type {
+        case .work: workDuration = seconds
+        case .shortBreak: shortBreakDuration = seconds
+        case .longBreak: longBreakDuration = seconds
+        }
+        if timerState == .stopped && sessionType == type {
+            remainingSeconds = seconds
+        }
+    }
+
     override init() {
         let defaults = UserDefaults.standard
         let work = defaults.object(forKey: "workDuration") == nil ? SessionType.work.duration : defaults.integer(forKey: "workDuration")

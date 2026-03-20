@@ -11,7 +11,7 @@ A minimal macOS menu bar Pomodoro timer. Stays out of your way until you need it
 - **Full Pomodoro cycle** — 25 min work → 5 min break × 3 → 15 min long break, auto-advancing
 - **Session labels** — name what you're working on; label appears in notifications and calendar events
 - **Task list** — tracks named tasks across sessions; see total pomodoro count per task, mark complete, switch between tasks
-- **Editable durations** — click the timer display to set a custom MM:SS for any session type
+- **Configurable durations** — set work, short break, and long break lengths from the Settings tab
 - **Audio feedback** — soft tick sound during countdown, alarm on completion (with volume control)
 - **System notifications** — alerts when sessions and breaks complete, even when the app is hidden
 - **Calendar logging** — logs completed work sessions to a "Pomodoro" calendar in Calendar.app
@@ -60,7 +60,7 @@ Then press **Cmd+R** to build and run in debug mode.
 The app will request the following permissions at runtime:
 
 - **Notifications** — to alert you when sessions complete
-- **Calendar** — optional; only requested if you enable "Log to Calendar" in the popover
+- **Calendar** — optional; only requested if you enable "Log to Calendar" in Settings
 
 No accessibility permissions are required. Global keyboard shortcuts use the Carbon hotkey API.
 

@@ -84,7 +84,7 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 ## Phase 8: Polish & UX
 - [x] Design proper menu bar icon (tomato with countdown)
 - [x] Add app icon
-- [ ] Create preferences/settings window (accessible from menu)
+- [x] Create preferences/settings window (Settings tab in popover: Durations, Sound, Integrations)
 - [x] Add "About" menu item
 - [x] Add "Quit" menu item
 - [x] Ensure app survives system sleep/wake

@@ -14,8 +14,31 @@ private struct ShortcutRow: View {
     }
 }
 
+private struct DurationRow: View {
+    let label: String
+    let type: SessionType
+    @ObservedObject var timer: TimerModel
+
+    private var minutes: Int { timer.duration(for: type) / 60 }
+
+    var body: some View {
+        HStack {
+            Text(label)
+            Spacer()
+            Stepper(value: Binding(
+                get: { minutes },
+                set: { timer.updateDuration(for: type, minutes: $0) }
+            ), in: 1...99) {
+                Text("\(minutes) min")
+                    .monospacedDigit()
+                    .frame(minWidth: 42, alignment: .trailing)
+            }
+        }
+    }
+}
+
 private enum PopoverTab {
-    case timer, tasks
+    case timer, tasks, settings
 }
 
 struct TimerPopoverView: View {
@@ -27,17 +50,21 @@ struct TimerPopoverView: View {
             Picker("", selection: $selectedTab) {
                 Text("Timer").tag(PopoverTab.timer)
                 Text("Tasks").tag(PopoverTab.tasks)
+                Text("Settings").tag(PopoverTab.settings)
             }
             .pickerStyle(.segmented)
 
-            if selectedTab == .timer {
+            switch selectedTab {
+            case .timer:
                 timerContent
-            } else {
+            case .tasks:
                 TasksView(timer: timer)
+            case .settings:
+                settingsContent
             }
         }
         .padding(20)
-        .frame(width: 240)
+        .frame(width: 260)
     }
 
     private var timerContent: some View {
@@ -98,33 +125,59 @@ struct TimerPopoverView: View {
             }
             .font(.caption)
             .foregroundStyle(.secondary)
+        }
+    }
+
+    private var settingsContent: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            settingsSection("Durations") {
+                DurationRow(label: "Work", type: .work, timer: timer)
+                DurationRow(label: "Short Break", type: .shortBreak, timer: timer)
+                DurationRow(label: "Long Break", type: .longBreak, timer: timer)
+            }
 
             Divider()
 
-            Toggle("Log to Calendar", isOn: $timer.calendarEnabled)
-                .controlSize(.small)
-
-            Toggle("Tick Sound", isOn: $timer.tickSoundEnabled)
-                .controlSize(.small)
-
-            if timer.tickSoundEnabled {
-                HStack(spacing: 4) {
-                    Image(systemName: "speaker.fill")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-                    Slider(value: $timer.tickVolume, in: 0...1)
-                        .controlSize(.small)
-                    Image(systemName: "speaker.wave.3.fill")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
+            settingsSection("Sound") {
+                Toggle("Tick Sound", isOn: $timer.tickSoundEnabled)
+                if timer.tickSoundEnabled {
+                    HStack(spacing: 4) {
+                        Image(systemName: "speaker.fill")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                        Slider(value: $timer.tickVolume, in: 0...1)
+                        Image(systemName: "speaker.wave.3.fill")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
+
+            Divider()
+
+            settingsSection("Integrations") {
+                Toggle("Log to Calendar", isOn: $timer.calendarEnabled)
+            }
+
+            Spacer()
 
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
             }
             .controlSize(.small)
             .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+    }
+
+    @ViewBuilder
+    private func settingsSection<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundStyle(.secondary)
+            content()
         }
     }
 }
