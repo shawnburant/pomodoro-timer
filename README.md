@@ -1,6 +1,6 @@
 # Pomodoro Timer
 
-A minimal macOS menu bar Pomodoro timer. Stays out of your way until you need it.
+A minimal macOS menu bar Pomodoro timer. Stays out of your way until you need it. Based on the [Pomodoro Technique](https://www.pomodorotechnique.com/).
 
 ![macOS](https://img.shields.io/badge/macOS-13.0%2B-blue)
 ![Swift](https://img.shields.io/badge/Swift-6.0-orange)
