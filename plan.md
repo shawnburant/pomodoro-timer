@@ -116,6 +116,15 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 - [x] Clear button (×) clears the label field to show all tasks
 - [x] Dropdown renders as opaque floating card above sibling views (zIndex + solid background)
 
+## Phase 11: Inline Task Actions
+- [x] Add `TaskStore.unmarkComplete()` — clears `isCompleted` and `completedAt`, saves
+- [x] Replace context menu with inline checkbox (mark/unmark complete) and × (delete) buttons on every task row
+- [x] Checkbox shows `checkmark.circle.fill` (accent) for completed, `circle` (secondary) for active
+- [x] Task name shows strikethrough and secondary color when completed
+- [x] "Tasks" section label added above active task list
+- [x] Completed section always visible (collapsible chevron toggle, not a `DisclosureGroup`)
+- [x] `TasksView` directly observes `taskStore` via `@ObservedObject` so UI updates immediately on any mutation
+
 ## Future Enhancements (Not in Initial Build)
 - Configurable timer durations
 - Statistics dashboard

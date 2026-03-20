@@ -50,6 +50,13 @@ final class TaskStore: ObservableObject {
         save()
     }
 
+    func unmarkComplete(_ task: PomodoroTask) {
+        guard let index = tasks.firstIndex(where: { $0.id == task.id }) else { return }
+        tasks[index].isCompleted = false
+        tasks[index].completedAt = nil
+        save()
+    }
+
     func deleteTask(_ task: PomodoroTask) {
         tasks.removeAll { $0.id == task.id }
         save()
