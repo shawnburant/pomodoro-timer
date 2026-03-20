@@ -11,6 +11,7 @@ A minimal macOS menu bar Pomodoro timer. Stays out of your way until you need it
 - **Full Pomodoro cycle** — 25 min work → 5 min break × 3 → 15 min long break, auto-advancing
 - **Session labels** — name what you're working on; label appears in notifications and calendar events
 - **Task list** — tracks named tasks across sessions; see total pomodoro count per task, mark complete, switch between tasks
+- **Task autocomplete** — clicking the session label field drops down your active tasks; type to filter, tap to select
 - **Configurable durations** — set work, short break, and long break lengths from the Settings tab
 - **Audio feedback** — soft tick sound during countdown, alarm on completion (with volume control)
 - **System notifications** — alerts when sessions and breaks complete, even when the app is hidden

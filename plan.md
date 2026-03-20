@@ -109,6 +109,13 @@ Build a macOS menu bar Pomodoro timer that helps track focused work sessions wit
 - [x] Add Timer | Tasks segmented tab picker to `TimerPopoverView`
 - [x] Make `Session` and `SessionType` `Codable` for persistence
 
+## Phase 10: Task Autocomplete on Session Label Field
+- [x] Replace plain `TextField` with `TaskAutocompleteField` in Timer tab
+- [x] Dropdown shows active tasks on focus; filters in real time as user types
+- [x] Selecting a task calls `switchToTask()` and dismisses the dropdown
+- [x] Clear button (×) clears the label field to show all tasks
+- [x] Dropdown renders as opaque floating card above sibling views (zIndex + solid background)
+
 ## Future Enhancements (Not in Initial Build)
 - Configurable timer durations
 - Statistics dashboard

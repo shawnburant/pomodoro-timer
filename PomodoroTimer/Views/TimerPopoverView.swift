@@ -1,5 +1,75 @@
 import SwiftUI
 
+private struct TaskAutocompleteField: View {
+    @Binding var text: String
+    let tasks: [PomodoroTask]
+    let isDisabled: Bool
+    let onSelect: (PomodoroTask) -> Void
+
+    @FocusState private var focused: Bool
+
+    private var filteredTasks: [PomodoroTask] {
+        text.isEmpty ? tasks : tasks.filter { $0.name.localizedCaseInsensitiveContains(text) }
+    }
+
+    private var showDropdown: Bool {
+        focused && !filteredTasks.isEmpty && !isDisabled
+    }
+
+    var body: some View {
+        ZStack(alignment: .trailing) {
+            TextField("What are you working on?", text: $text)
+                .textFieldStyle(.roundedBorder)
+                .focused($focused)
+                .disabled(isDisabled)
+            if !text.isEmpty && !isDisabled {
+                Button {
+                    text = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(.secondary)
+                }
+                .buttonStyle(.plain)
+                .padding(.trailing, 6)
+            }
+        }
+        .zIndex(1)
+        .overlay(alignment: .bottom) {
+            if showDropdown {
+                let rowHeight: CGFloat = 34
+                let dropdownHeight = min(CGFloat(filteredTasks.count), 4) * rowHeight
+                ScrollView {
+                    VStack(spacing: 0) {
+                        ForEach(filteredTasks) { task in
+                            HStack {
+                                Text(task.name)
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("🍅 \(task.pomodoroCount)")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 5)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                onSelect(task)
+                                focused = false
+                            }
+                        }
+                    }
+                }
+                .frame(height: dropdownHeight)
+                .background(Color(NSColor.windowBackgroundColor))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
+                .offset(y: dropdownHeight)
+            }
+        }
+    }
+}
+
 private struct ShortcutRow: View {
     let keys: String
     let label: String
@@ -69,9 +139,12 @@ struct TimerPopoverView: View {
 
     private var timerContent: some View {
         VStack(spacing: 16) {
-            TextField("What are you working on?", text: $timer.sessionLabel)
-                .textFieldStyle(.roundedBorder)
-                .disabled(timer.timerState == .running)
+            TaskAutocompleteField(
+                text: $timer.sessionLabel,
+                tasks: timer.taskStore.tasks.filter { !$0.isCompleted },
+                isDisabled: timer.timerState == .running,
+                onSelect: { task in timer.switchToTask(task) }
+            )
 
             VStack(spacing: 4) {
                 Text(timer.cycleProgressText)
